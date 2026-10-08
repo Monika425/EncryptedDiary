@@ -15,7 +15,6 @@ Create Diary · Encrypted Diary
         ← Back to Diaries
     </a>
 
-
     <div class="form-heading">
 
         <div class="large-security-icon">
@@ -41,7 +40,6 @@ Create Diary · Encrypted Diary
 
     </div>
 
-
     <form
         method="POST"
         class="modern-form"
@@ -57,11 +55,11 @@ Create Diary · Encrypted Diary
                 type="text"
                 name="name"
                 placeholder="Personal Diary"
+                maxlength="200"
                 required
             >
 
         </div>
-
 
         <div class="field">
 
@@ -78,7 +76,6 @@ Create Diary · Encrypted Diary
 
         </div>
 
-
         <div class="field">
 
             <label>
@@ -90,7 +87,7 @@ Create Diary · Encrypted Diary
                 <input
                     type="password"
                     name="password"
-                    id="password"
+                    id="diaryPassword"
                     minlength="6"
                     placeholder="Minimum 6 characters"
                     required
@@ -98,7 +95,10 @@ Create Diary · Encrypted Diary
 
                 <button
                     type="button"
-                    onclick="togglePassword('password', this)"
+                    onclick="togglePassword(
+                        'diaryPassword',
+                        this
+                    )"
                 >
                     Show
                 </button>
@@ -111,7 +111,6 @@ Create Diary · Encrypted Diary
 
         </div>
 
-
         <div class="field">
 
             <label>
@@ -120,13 +119,13 @@ Create Diary · Encrypted Diary
 
             <input
                 type="password"
-                name="confirm_password"
+                name="confirm"
+                minlength="6"
                 placeholder="Enter the password again"
                 required
             >
 
         </div>
-
 
         <div class="encryption-info">
 
@@ -141,14 +140,13 @@ Create Diary · Encrypted Diary
                 </strong>
 
                 <p>
-                    Journal entries will be encrypted
-                    before being written to SQLite.
+                    Journal entries are encrypted
+                    before being stored in the database.
                 </p>
 
             </div>
 
         </div>
-
 
         <div class="form-buttons">
 
