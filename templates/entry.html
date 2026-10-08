@@ -1,205 +1,26 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block title %} Journal Entry {% endblock %} {% block content %}
+← Back to Diary {% if entry %}
+DECRYPTED ENTRY
+{{ entry["created_at"] }}
+✓
+{{ title }}
+{{ content }}
+Back Delete Entry
+{% else %}
+✎
+NEW JOURNAL ENTRY
+Write Something
+Your entry will be encrypted before being stored.
 
-{% block title %}
-Journal Entry
-{% endblock %}
+Entry Title 
+A productive day
+Your Thoughts 
+Write your thoughts here...
 
-{% block content %}
+🔐
+Automatic encryption
+The title and content will be encrypted using your diary's encryption key before they reach SQLite.
 
-<div class="form-page">
-
-    <a
-        href="{{ url_for(
-            'view_unlocked_diary',
-            diary_id=diary['id']
-        ) }}"
-        class="back-link"
-    >
-        ← Back to Diary
-    </a>
-
-
-    {% if entry %}
-
-    <div class="entry-detail-card">
-
-        <div class="entry-detail-top">
-
-            <div>
-
-                <div class="eyebrow unlocked-text">
-                    DECRYPTED ENTRY
-                </div>
-
-                <div class="entry-date">
-                    {{ entry["created_at"] }}
-                </div>
-
-            </div>
-
-            <div class="decrypted-check">
-                ✓
-            </div>
-
-        </div>
-
-
-        <h1>
-            {{ title }}
-        </h1>
-
-
-        <div class="entry-full-content">
-            {{ content }}
-        </div>
-
-
-        <div class="entry-detail-actions">
-
-            <a
-                href="{{ url_for(
-                    'view_unlocked_diary',
-                    diary_id=diary['id']
-                ) }}"
-                class="secondary-button"
-            >
-                Back
-            </a>
-
-            <a
-                href="{{ url_for(
-                    'delete_entry',
-                    diary_id=diary['id'],
-                    entry_id=entry['id']
-                ) }}"
-                class="danger-button"
-                onclick="
-                    return confirm(
-                        'Delete this encrypted entry?'
-                    )
-                "
-            >
-                Delete Entry
-            </a>
-
-        </div>
-
-    </div>
-
-
-    {% else %}
-
-    <div class="form-heading">
-
-        <div class="large-security-icon">
-            ✎
-        </div>
-
-        <div>
-
-            <div class="eyebrow">
-                NEW JOURNAL ENTRY
-            </div>
-
-            <h1>
-                Write Something
-            </h1>
-
-            <p>
-                Your entry will be encrypted before
-                being stored.
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <form
-        method="POST"
-        class="modern-form"
-    >
-
-        <div class="field">
-
-            <label>
-                Entry Title
-            </label>
-
-            <input
-                type="text"
-                name="title"
-                placeholder="A productive day"
-                required
-            >
-
-        </div>
-
-
-        <div class="field">
-
-            <label>
-                Your Thoughts
-            </label>
-
-            <textarea
-                name="content"
-                class="journal-input"
-                placeholder="Write your thoughts here..."
-                required
-            ></textarea>
-
-        </div>
-
-
-        <div class="encryption-info">
-
-            <div class="encryption-info-icon">
-                🔐
-            </div>
-
-            <div>
-
-                <strong>
-                    Automatic encryption
-                </strong>
-
-                <p>
-                    The title and content will be encrypted
-                    using your diary's encryption key before
-                    they reach SQLite.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="form-buttons">
-
-            <a
-                href="{{ url_for(
-                    'view_unlocked_diary',
-                    diary_id=diary['id']
-                ) }}"
-                class="secondary-button"
-            >
-                Cancel
-            </a>
-
-            <button
-                type="submit"
-                class="primary-button"
-            >
-                🔐 Encrypt & Save
-            </button>
-
-        </div>
-
-    </form>
-
-    {% endif %}
-
-</div>
-
+Cancel 🔐 Encrypt & Save
+{% endif %}
 {% endblock %}
