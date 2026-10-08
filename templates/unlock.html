@@ -1,105 +1,15 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block title %} Unlock {{ diary["name"] }} {% endblock %} {% block content %}
+← Back to Locked Diary
+🔐
+SECURE ACCESS
+Unlock Diary
+Enter the password for {{ diary["name"] }} to decrypt your journal.
 
-{% block title %}
-Unlock {{ diary["name"] }}
-{% endblock %}
-
-{% block content %}
-
-<div class="unlock-page">
-
-    <a
-        href="{{ url_for(
-            'view_locked_diary',
-            diary_id=diary['id']
-        ) }}"
-        class="back-link"
-    >
-        ← Back to Locked Diary
-    </a>
-
-
-    <div class="unlock-card">
-
-        <div class="unlock-big-icon">
-            🔐
-        </div>
-
-        <div class="eyebrow">
-            SECURE ACCESS
-        </div>
-
-        <h1>
-            Unlock Diary
-        </h1>
-
-        <p>
-            Enter the password for
-            <strong>{{ diary["name"] }}</strong>
-            to decrypt your journal.
-        </p>
-
-
-        <form method="POST">
-
-            <div class="field">
-
-                <label>
-                    Diary Password
-                </label>
-
-                <div class="password-field">
-
-                    <input
-                        type="password"
-                        name="password"
-                        id="unlockPassword"
-                        placeholder="Enter your password"
-                        autofocus
-                        required
-                    >
-
-                    <button
-                        type="button"
-                        onclick="togglePassword(
-                            'unlockPassword',
-                            this
-                        )"
-                    >
-                        Show
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <button
-                type="submit"
-                class="unlock-submit"
-            >
-                🔓 Unlock & Decrypt
-            </button>
-
-        </form>
-
-
-        <div class="unlock-security">
-
-            <div>
-                ✓
-            </div>
-
-            <p>
-                Your password is used to derive the
-                decryption key. It is not stored as
-                plaintext.
-            </p>
-
-        </div>
-
-    </div>
-
-</div>
+Diary Password
+Enter your password
+ Show
+🔓 Unlock & Decrypt
+✓
+Your password is used to derive the decryption key. It is not stored as plaintext.
 
 {% endblock %}
