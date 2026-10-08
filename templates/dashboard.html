@@ -1,256 +1,38 @@
-{% extends "base.html" %}
-
-{% block title %}
-Dashboard · Encrypted Diary
-{% endblock %}
-
-{% block content %}
-
-<section class="dashboard-hero">
-
-    <div>
-
-        <div class="eyebrow">
-            PRIVATE JOURNAL
-        </div>
-
-        <h1>
-            Welcome back,<br>
-            <span>{{ user["username"] }}.</span>
-        </h1>
-
-        <p>
-            Your private thoughts, protected by encryption.
-        </p>
-
-    </div>
-
-
-    <a
-        href="{{ url_for('create_diary') }}"
-        class="primary-button"
-    >
-        <span>+</span>
-        Create Diary
-    </a>
-
-</section>
-
-
-<section class="stats-grid">
-
-    <div class="stat-card">
-
-        <div class="stat-top">
-
-            <span>
-                YOUR DIARIES
-            </span>
-
-            <div class="stat-icon blue">
-                ▣
-            </div>
-
-        </div>
-
-        <strong>
-            {{ diaries|length }}
-        </strong>
-
-        <small>
-            Private spaces
-        </small>
-
-    </div>
-
-
-    <div class="stat-card">
-
-        <div class="stat-top">
-
-            <span>
-                YOUR ENTRIES
-            </span>
-
-            <div class="stat-icon purple">
-                ≡
-            </div>
-
-        </div>
-
-        <strong>
-
-            {% set total = namespace(value=0) %}
-
-            {% for diary in diaries %}
-
-                {% set total.value =
-                    total.value + diary["entry_count"]
-                %}
-
-            {% endfor %}
-
-            {{ total.value }}
-
-        </strong>
-
-        <small>
-            Encrypted entries
-        </small>
-
-    </div>
-
-
-    <div class="stat-card">
-
-        <div class="stat-top">
-
-            <span>
-                SECURITY
-            </span>
-
-            <div class="stat-icon green">
-                ✓
-            </div>
-
-        </div>
-
-        <strong>
-            Protected
-        </strong>
-
-        <small>
-            Fernet encryption
-        </small>
-
-    </div>
-
-</section>
-
-
-<section class="diaries-section">
-
-    <div class="section-header">
-
-        <div>
-
-            <h2>
-                My Diaries
-            </h2>
-
-            <p>
-                Select a diary to view its encrypted contents.
-            </p>
-
-        </div>
-
-        <div class="diary-count">
-            {{ diaries|length }} diaries
-        </div>
-
-    </div>
-
-
-    {% if diaries %}
-
-    <div class="diary-grid">
-
-        {% for diary in diaries %}
-
-        <a
-            href="{{ url_for(
-                'view_locked_diary',
-                diary_id=diary['id']
-            ) }}"
-            class="diary-card"
-        >
-
-            <div class="diary-card-header">
-
-                <div class="diary-symbol">
-                    🔒
-                </div>
-
-                <div class="card-arrow">
-                    →
-                </div>
-
-            </div>
-
-
-            <div class="diary-card-body">
-
-                <div class="encrypted-label">
-                    ENCRYPTED
-                </div>
-
-                <h3>
-                    {{ diary["name"] }}
-                </h3>
-
-                <p>
-
-                    {% if diary["description"] %}
-
-                        {{ diary["description"] }}
-
-                    {% else %}
-
-                        A private encrypted diary.
-
-                    {% endif %}
-
-                </p>
-
-            </div>
-
-
-            <div class="diary-card-footer">
-
-                <span>
-                    {{ diary["entry_count"] }} entries
-                </span>
-
-                <span>
-                    {{ diary["created_at"][:10] }}
-                </span>
-
-            </div>
-
-        </a>
-
-        {% endfor %}
-
-    </div>
-
-    {% else %}
-
-    <div class="empty-state">
-
-        <div class="empty-state-icon">
-            🔐
-        </div>
-
-        <h3>
-            No diaries yet
-        </h3>
-
-        <p>
-            Create your first encrypted diary
-            to get started.
-        </p>
-
-        <a
-            href="{{ url_for('create_diary') }}"
-            class="primary-button"
-        >
-            Create Your First Diary
-        </a>
-
-    </div>
-
-    {% endif %}
-
-</section>
-
+{% extends "base.html" %} {% block title %} Dashboard · Encrypted Diary {% endblock %} {% block content %}
+PRIVATE JOURNAL
+Welcome back,
+{{ user["username"] }}.
+Your private thoughts, protected by encryption.
+
++ Create Diary
+YOUR DIARIES
+▣
+{{ diaries|length }} Private spaces
+YOUR ENTRIES
+≡
+{% set total = namespace(value=0) %} {% for diary in diaries %} {% set total.value = total.value + diary["entry_count"] %} {% endfor %} {{ total.value }} Encrypted entries
+SECURITY
+✓
+Protected Fernet encryption
+My Diaries
+Select a diary to view its encrypted contents.
+
+{{ diaries|length }} diaries
+{% if diaries %}
+{% for diary in diaries %}
+🔒
+→
+ENCRYPTED
+{{ diary["name"] }}
+{% if diary["description"] %} {{ diary["description"] }} {% else %} A private encrypted diary. {% endif %}
+
+{{ diary["entry_count"] }} entries {{ diary["created_at"][:10] }}
+{% endfor %}
+{% else %}
+🔐
+No diaries yet
+Create your first encrypted diary to get started.
+
+Create Your First Diary
+{% endif %}
 {% endblock %}
