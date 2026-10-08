@@ -1,2 +1,10 @@
 [project]
-requires-python = "~=3.12.0"
+name = "encrypted-diary"
+version = "1.0.0"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "Flask==2.3.3",
+    "cryptography",
+    "Werkzeug==2.3.7",
+    "psycopg2-binary"
+]
