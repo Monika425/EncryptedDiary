@@ -1,0 +1,216 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ diary["name"] }} · Locked
+{% endblock %}
+
+{% block content %}
+
+<div class="locked-page">
+
+    <div class="locked-header">
+
+        <a
+            href="{{ url_for('dashboard') }}"
+            class="back-link"
+        >
+            ← My Diaries
+        </a>
+
+
+        <div class="locked-status">
+            <span class="status-lock">
+                🔒
+            </span>
+
+            LOCKED
+        </div>
+
+    </div>
+
+
+    <section class="locked-hero">
+
+        <div class="locked-icon">
+            🔐
+        </div>
+
+        <div>
+
+            <div class="eyebrow">
+                ENCRYPTED DIARY
+            </div>
+
+            <h1>
+                {{ diary["name"] }}
+            </h1>
+
+            <p>
+                {{ diary["description"] or
+                   "Private encrypted journal" }}
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <div class="security-banner">
+
+        <div class="banner-icon">
+            🔐
+        </div>
+
+        <div>
+
+            <strong>
+                Your diary is locked
+            </strong>
+
+            <p>
+                The entries below are stored as encrypted
+                ciphertext. Nothing has been decrypted.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="locked-toolbar">
+
+        <div>
+
+            <h2>
+                Encrypted Entries
+            </h2>
+
+            <p>
+                {{ entries|length }}
+                encrypted journal entries
+            </p>
+
+        </div>
+
+
+        <a
+            href="{{ url_for(
+                'unlock_diary',
+                diary_id=diary['id']
+            ) }}"
+            class="unlock-button"
+        >
+            <span>🔓</span>
+            Unlock Diary
+        </a>
+
+    </div>
+
+
+    {% if entries %}
+
+    <div class="encrypted-entry-list">
+
+        {% for entry in entries %}
+
+        <div class="encrypted-entry">
+
+            <div class="encrypted-entry-top">
+
+                <div class="encrypted-entry-number">
+
+                    {{ "%02d"|format(loop.index) }}
+
+                </div>
+
+                <div class="encrypted-entry-date">
+
+                    {{ entry["created_at"] }}
+
+                </div>
+
+            </div>
+
+
+            <div class="cipher-section">
+
+                <div class="cipher-label">
+                    ENCRYPTED TITLE
+                </div>
+
+                <div class="cipher-text">
+                    {{ entry["encrypted_title"] }}
+                </div>
+
+            </div>
+
+
+            <div class="cipher-section">
+
+                <div class="cipher-label">
+                    ENCRYPTED CONTENT
+                </div>
+
+                <div class="cipher-text content-cipher">
+
+                    {{ entry["encrypted_content"] }}
+
+                </div>
+
+            </div>
+
+
+            <div class="cipher-footer">
+
+                <span>
+                    🔒 Fernet ciphertext
+                </span>
+
+                <span>
+                    Locked
+                </span>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-state">
+
+        <div class="empty-state-icon">
+            ▤
+        </div>
+
+        <h3>
+            No entries
+        </h3>
+
+        <p>
+            This diary doesn't contain any entries yet.
+        </p>
+
+    </div>
+
+    {% endif %}
+
+
+    <div class="locked-footer">
+
+        <span>
+            🔒 Data remains encrypted while locked
+        </span>
+
+        <span>
+            SQLite storage
+        </span>
+
+    </div>
+
+</div>
+
+{% endblock %}

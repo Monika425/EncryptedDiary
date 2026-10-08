@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+
+{% block title %}
+Create Diary · Encrypted Diary
+{% endblock %}
+
+{% block content %}
+
+<div class="form-page">
+
+    <a
+        href="{{ url_for('dashboard') }}"
+        class="back-link"
+    >
+        ← Back to Diaries
+    </a>
+
+
+    <div class="form-heading">
+
+        <div class="large-security-icon">
+            🔐
+        </div>
+
+        <div>
+
+            <div class="eyebrow">
+                NEW PRIVATE SPACE
+            </div>
+
+            <h1>
+                Create a Diary
+            </h1>
+
+            <p>
+                Every diary has its own password and
+                encryption key.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <form
+        method="POST"
+        class="modern-form"
+    >
+
+        <div class="field">
+
+            <label>
+                Diary Name
+            </label>
+
+            <input
+                type="text"
+                name="name"
+                placeholder="Personal Diary"
+                required
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Description
+                <span>Optional</span>
+            </label>
+
+            <textarea
+                name="description"
+                rows="3"
+                placeholder="A place for my personal thoughts..."
+            ></textarea>
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Diary Password
+            </label>
+
+            <div class="password-field">
+
+                <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    minlength="6"
+                    placeholder="Minimum 6 characters"
+                    required
+                >
+
+                <button
+                    type="button"
+                    onclick="togglePassword('password', this)"
+                >
+                    Show
+                </button>
+
+            </div>
+
+            <div class="field-hint">
+                This password is used to derive the encryption key.
+            </div>
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Confirm Password
+            </label>
+
+            <input
+                type="password"
+                name="confirm_password"
+                placeholder="Enter the password again"
+                required
+            >
+
+        </div>
+
+
+        <div class="encryption-info">
+
+            <div class="encryption-info-icon">
+                ✓
+            </div>
+
+            <div>
+
+                <strong>
+                    Encryption enabled
+                </strong>
+
+                <p>
+                    Journal entries will be encrypted
+                    before being written to SQLite.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="form-buttons">
+
+            <a
+                href="{{ url_for('dashboard') }}"
+                class="secondary-button"
+            >
+                Cancel
+            </a>
+
+            <button
+                type="submit"
+                class="primary-button"
+            >
+                Create Secure Diary
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

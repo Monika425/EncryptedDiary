@@ -1,0 +1,4 @@
+Flask==2.3.3
+cryptography
+Werkzeug==2.3.7
+psycopg2-binary

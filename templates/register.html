@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+
+{% block title %}
+Create Account · Encrypted Diary
+{% endblock %}
+
+{% block content %}
+
+<div class="auth-page">
+
+    <div class="auth-card register-card">
+
+        <div class="auth-logo">
+            ✦
+        </div>
+
+        <div class="eyebrow">
+            GET STARTED
+        </div>
+
+        <h1>
+            Create your account
+        </h1>
+
+        <p class="auth-description">
+            Your account gives you a private space
+            for your encrypted diaries.
+        </p>
+
+
+        <form method="POST">
+
+            <div class="field">
+
+                <label>
+                    Username
+                </label>
+
+                <input
+                    type="text"
+                    name="username"
+                    placeholder="Choose a username"
+                    minlength="3"
+                    required
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Email Address
+                </label>
+
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="you@example.com"
+                    required
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Account Password
+                </label>
+
+                <div class="password-field">
+
+                    <input
+                        type="password"
+                        name="password"
+                        id="registerPassword"
+                        placeholder="Minimum 6 characters"
+                        minlength="6"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        onclick="togglePassword(
+                            'registerPassword',
+                            this
+                        )"
+                    >
+                        Show
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Confirm Password
+                </label>
+
+                <input
+                    type="password"
+                    name="confirm_password"
+                    placeholder="Enter password again"
+                    minlength="6"
+                    required
+                >
+
+            </div>
+
+
+            <div class="encryption-info">
+
+                <div class="encryption-info-icon">
+                    ✓
+                </div>
+
+                <div>
+
+                    <strong>
+                        Your account is protected
+                    </strong>
+
+                    <p>
+                        Your account password is stored
+                        using a secure password hash.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="auth-submit"
+            >
+                Create Account
+            </button>
+
+        </form>
+
+
+        <div class="auth-divider">
+            <span>OR</span>
+        </div>
+
+
+        <p class="auth-switch">
+
+            Already have an account?
+
+            <a
+                href="{{ url_for('login') }}"
+            >
+                Sign in
+            </a>
+
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock %}

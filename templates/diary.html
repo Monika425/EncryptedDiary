@@ -1,0 +1,225 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ diary["name"] }} · Unlocked
+{% endblock %}
+
+{% block content %}
+
+<div class="unlocked-page">
+
+    <div class="unlocked-header">
+
+        <div>
+
+            <a
+                href="{{ url_for('dashboard') }}"
+                class="back-link"
+            >
+                ← My Diaries
+            </a>
+
+        </div>
+
+
+        <div class="unlocked-status">
+
+            <span>
+                ✓
+            </span>
+
+            UNLOCKED
+
+        </div>
+
+    </div>
+
+
+    <section class="diary-main-header">
+
+        <div class="diary-title">
+
+            <div class="unlocked-icon">
+                🔓
+            </div>
+
+            <div>
+
+                <div class="eyebrow unlocked-text">
+                    DECRYPTED DIARY
+                </div>
+
+                <h1>
+                    {{ diary["name"] }}
+                </h1>
+
+                <p>
+                    {{ diary["description"] or
+                       "Your private journal" }}
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="diary-actions">
+
+            <a
+                href="{{ url_for(
+                    'create_entry',
+                    diary_id=diary['id']
+                ) }}"
+                class="primary-button"
+            >
+                + New Entry
+            </a>
+
+            <a
+                href="{{ url_for('lock') }}"
+                class="secondary-button"
+            >
+                🔒 Lock Diary
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <div class="decrypted-banner">
+
+        <div class="decrypted-icon">
+            ✓
+        </div>
+
+        <div>
+
+            <strong>
+                Diary successfully decrypted
+            </strong>
+
+            <p>
+                You can now view your journal entries.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="section-header diary-entry-heading">
+
+        <div>
+
+            <h2>
+                Journal Entries
+            </h2>
+
+            <p>
+                {{ entries|length }}
+                decrypted entries
+            </p>
+
+        </div>
+
+    </div>
+
+
+    {% if entries %}
+
+    <div class="decrypted-entry-list">
+
+        {% for entry in entries %}
+
+        <div class="decrypted-entry">
+
+            <div class="decrypted-entry-top">
+
+                <div>
+
+                    <div class="entry-date">
+                        {{ entry["created_at"] }}
+                    </div>
+
+                    <h3>
+                        {{ entry["title"] }}
+                    </h3>
+
+                </div>
+
+                <div class="decrypted-check">
+                    ✓
+                </div>
+
+            </div>
+
+
+            <div class="entry-content-preview">
+
+                {{ entry["content"][:280] }}
+
+                {% if entry["content"]|length > 280 %}
+                    ...
+                {% endif %}
+
+            </div>
+
+
+            <div class="entry-card-footer">
+
+                <a
+                    href="{{ url_for(
+                        'view_entry',
+                        diary_id=diary['id'],
+                        entry_id=entry['id']
+                    ) }}"
+                >
+                    Open Entry →
+                </a>
+
+                <span>
+                    🔓 Decrypted
+                </span>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-state">
+
+        <div class="empty-state-icon">
+            ✎
+        </div>
+
+        <h3>
+            Your diary is empty
+        </h3>
+
+        <p>
+            Start writing your first private entry.
+        </p>
+
+        <a
+            href="{{ url_for(
+                'create_entry',
+                diary_id=diary['id']
+            ) }}"
+            class="primary-button"
+        >
+            Write First Entry
+        </a>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
